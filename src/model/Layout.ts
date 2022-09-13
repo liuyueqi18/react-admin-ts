@@ -1,6 +1,6 @@
-import { RouteItem } from "./Route";
+import { RouteItemModel } from "./Route";
 
 export type LayoutModel = {
   path: string;
-  breadcrumbKeys: RouteItem[];
+  breadcrumbKeys: RouteItemModel[];
 };

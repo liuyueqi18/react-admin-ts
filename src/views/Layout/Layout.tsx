@@ -14,8 +14,8 @@ import SiderLogo from "./SiderLogo";
 import * as Icon from "@ant-design/icons";
 import HeaderRight from "./HeaderRight";
 import { LayoutModel } from "../../model/Layout";
-import { RouteItem } from "../../model/Route";
-import { RequiredByKeys } from "../../hocks";
+import { RouteItemModel } from "../../model/Route";
+import { RequiredByKeys } from "../../hocks/index";
 
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -26,7 +26,7 @@ function LayoutComponent() {
     breadcrumbKeys: [],
   });
   let defaultOpenKeys: string[] = [];
-  let breadcrumbKeys: RouteItem[] = [];
+  let breadcrumbKeys: RouteItemModel[] = [];
   const loaction = useLocation();
   const nvigate = useNavigate();
 
@@ -45,7 +45,7 @@ function LayoutComponent() {
     });
   };
 
-  const getPathRoute = (tree: RouteItem[], path: string) => {
+  const getPathRoute = (tree: RouteItemModel[], path: string) => {
     for (let index = 0; index < tree.length; index++) {
       if (tree[index].children) {
         let endRecursiveLoop = getPathRoute(tree[index].children!, path);
@@ -66,7 +66,7 @@ function LayoutComponent() {
   const handlerMenuItem = (value: { path: To }) => {
     nvigate(value.path);
   };
-  const renderMenu = (list: RouteItem[]) => {
+  const renderMenu = (list: RouteItemModel[]) => {
     list = list.filter((item) => !item.isPage);
     return list.map((item) => {
       if (item.children?.length) {
@@ -111,14 +111,14 @@ function LayoutComponent() {
       }
     });
   };
-  const renderElementPage = (list: RouteItem[]) => {
-    let nodeList: RequiredByKeys<RouteItem, "component">[] = [];
-    let getNList = (list: RouteItem[]) => {
+  const renderElementPage = (list: RouteItemModel[]) => {
+    let nodeList: RequiredByKeys<RouteItemModel, "component">[] = [];
+    let getNList = (list: RouteItemModel[]) => {
       list.forEach((item) => {
         if (item.children?.length) {
           getNList(item.children);
         } else {
-          nodeList.push(item as RequiredByKeys<RouteItem, "component">);
+          nodeList.push(item as RequiredByKeys<RouteItemModel, "component">);
         }
       });
     };

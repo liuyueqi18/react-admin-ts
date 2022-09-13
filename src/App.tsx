@@ -5,7 +5,7 @@ import LayoutComponent from "./views/Layout/Layout";
 import Login from "./views/Login/Login";
 import routesList from "./routes/router";
 
-import { RouteItem } from "./model/Route";
+import { RouteItemModel } from "./model/Route";
 
 import zhCN from "antd/lib/locale/zh_CN";
 import { ConfigProvider } from "antd";
@@ -23,8 +23,8 @@ export default function App() {
   const RYMUSERID = localStorage.getItem("RYMUSERID");
 
   const handlerLogin = () => {
-    let nodeList: RouteItem[] = [];
-    let getNList = (list: RouteItem[]) => {
+    let nodeList: RouteItemModel[] = [];
+    let getNList = (list: RouteItemModel[]) => {
       list.forEach((item) => {
         if (item.children?.length) {
           getNList(item.children);

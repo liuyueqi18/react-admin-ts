@@ -1,8 +1,8 @@
 import { lazy, LazyExoticComponent } from "react";
-import { RouteItem } from "../model/Route";
+import { RouteItemModel } from "../model/Route";
 
 
-const routes: RouteItem[] = [
+const routes: RouteItemModel[] = [
   {
     path: "/",
     component: lazy(() => import("../views/Home/Home")),
