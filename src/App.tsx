@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function App() {
+import LayoutComponent from "./views/Layout/Layout";
+import Login from "./views/Login/Login";
+import routesList from "./routes/router";
+
+import { RouteItem } from "./model/Route";
+
+import zhCN from "antd/lib/locale/zh_CN";
+import { ConfigProvider } from "antd";
+
+export default function App() {
+  const loaction = useLocation();
+  const nvigate = useNavigate();
+
+  useEffect(() => {
+    handlerLogin();
+    return () => {
+      // Nothing...
+    };
+  }, [loaction.pathname]);
+  const RYMUSERID = localStorage.getItem("RYMUSERID");
+
+  const handlerLogin = () => {
+    let nodeList: RouteItem[] = [];
+    let getNList = (list: RouteItem[]) => {
+      list.forEach((item) => {
+        if (item.children?.length) {
+          getNList(item.children);
+        } else {
+          nodeList.push(item);
+        }
+      });
+    };
+    getNList(routesList);
+    const routerItem = nodeList.find((item) => item.path === loaction.pathname);
+    document.title = routerItem?.title || "React-Admin";
+
+    if (loaction.pathname === "/login") {
+      // 已经在登录页不在跳转
+      return;
+    } else {
+      if (routerItem?.requiresAuth) {
+        if (RYMUSERID) {
+          // 如有TOKEN不在跳转
+        } else {
+          nvigate("/login");
+          return;
+        }
+      }
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ConfigProvider locale={zhCN}>
+        {loaction.pathname === "/login" ? (
+          <Login></Login>
+        ) : (
+          <LayoutComponent></LayoutComponent>
+        )}
+      </ConfigProvider>
     </div>
   );
 }
-
-export default App;
