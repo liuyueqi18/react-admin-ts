@@ -1,20 +1,19 @@
 /// <reference types="react-scripts" />
 
-interface ImportMetaEnv {
-  /** 环境类型 */
-  readonly REACT_APP_NODE_ENV: 'development' | 'stage' | 'prod';
-  /** Jenkins部署 */
-  readonly CI: boolean;
-}
+// interface ImportMetaEnv {
+//   /** 环境类型 */
+//   readonly REACT_APP_NODE_ENV: 'development' | 'stage' | 'prod';
+//   /** Jenkins部署 */
+//   readonly CI: boolean;
+// }
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
+// interface ImportMeta {
+//   readonly env: ImportMetaEnv;
+// }
 
 declare namespace NodeJS {
   interface ProcessEnv {
-    readonly NODE_ENV: "development" | "stage" | "prod";
-    readonly PUBLIC_URL: string;
+    readonly REACT_APP_NODE_ENV: "development" | "stage" | "prod";
   }
 }
 
