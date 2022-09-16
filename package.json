@@ -13,6 +13,7 @@
     "antd": "^4.23.1",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
+    "dotenv-cli": "^6.0.0",
     "leancloud-storage": "^4.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,6 +26,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:stage": "dotenv -e .env.stage react-app-rewired build",
+    "build:prod": "dotenv -e .env.prod react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -20,8 +20,7 @@ function HeaderRight() {
   const getUserInfo = () => {
     setstate({
       username:
-        (JSON.parse(localStorage.getItem("USERINFO")!) as UserInfoModel)
-          .username ?? "",
+        JSON.parse(localStorage.getItem("USERINFO") ?? "").username ?? "",
     });
   };
   const handlerMenuItem = (type: number) => {
