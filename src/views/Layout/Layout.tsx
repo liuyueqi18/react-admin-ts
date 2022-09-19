@@ -35,6 +35,7 @@ function LayoutComponent() {
     return () => {
       // end
     };
+    // eslint-disable-next-line
   }, [loaction.pathname]);
 
   const handlerMenu = () => {
