@@ -19,6 +19,7 @@ export default function App() {
     return () => {
       // Nothing...
     };
+    // eslint-disable-next-line
   }, [loaction.pathname]);
   const RYMUSERID = localStorage.getItem("RYMUSERID");
 
