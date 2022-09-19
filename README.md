@@ -1,46 +1,34 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="https://react.docschina.org/">
+    <img src="https://img.shields.io/badge/react-18.2.0-blue.svg" alt="react">
+  </a>
+  <a href="https://github.com/facebook/create-react-app">
+    <img src="https://img.shields.io/badge/create--react--app-4.0.3-blue.svg" alt="react">
+  </a>
+  <a href="https://github.com/remix-run/react-router">
+    <img src="https://img.shields.io/badge/react--router--dom-6.3.0-blue.svg" alt="react-route-dom">
+  </a>
+  <a href="https://github.com/ant-design/ant-design">
+    <img src="https://img.shields.io/badge/antd-4.23.1-blue.svg" alt="andt">
+  </a>
+  <a href="https://github.com/microsoft/TypeScript">
+    <img src="https://img.shields.io/badge/typescript-4.7.4-blue.svg" alt="andt">
+  </a>
+  
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 简介
 
-## Available Scripts
+[react-admin-ts](https://github.com/liuyueqi18/react-admin) 是一个后台前端解决方案，它基于 [react](https://react.docschina.org/) 和 [antd](https://ant.design/components/overview-cn/) 实现。适用于中小型公司前端独自完成后台系统。开箱即用。
 
-In the project directory, you can run:
+- [在线预览](https://react-admin-ts.lyq168.cn/#/login)
 
-### `npm start`
+## 发布
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+# 构建测试环境
+npm run build:stage
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# 构建生产环境
+npm run build:prod
+```
