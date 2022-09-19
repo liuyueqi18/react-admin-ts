@@ -1,5 +1,7 @@
 /// <reference types="react-scripts" />
 
+
+// Todo 没有ImportMeatEnv vite中专门处理过 常规webpack不支持
 // interface ImportMetaEnv {
 //   /** 环境类型 */
 //   readonly REACT_APP_NODE_ENV: 'development' | 'stage' | 'prod';
