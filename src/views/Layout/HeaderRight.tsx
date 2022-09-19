@@ -29,7 +29,7 @@ function HeaderRight() {
     } else if (type === 1) {
       navigate("/home");
     } else if (type === 2) {
-      window.open("https://github.com/liuyueqi18/react-admin");
+      window.open("https://github.com/liuyueqi18/react-admin-ts");
     } else if (type === 4) {
       localStorage.clear();
       navigate("/login");

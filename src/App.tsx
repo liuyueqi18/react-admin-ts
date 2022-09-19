@@ -36,7 +36,7 @@ export default function App() {
     };
     getNList(routesList);
     const routerItem = nodeList.find((item) => item.path === loaction.pathname);
-    document.title = routerItem?.title || "React-Admin";
+    document.title = routerItem?.title || "React-Admin-Ts";
 
     if (loaction.pathname === "/login") {
       // 已经在登录页不在跳转

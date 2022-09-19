@@ -19,7 +19,7 @@
 
 ## 简介
 
-[react-admin-ts](https://github.com/liuyueqi18/react-admin) 是一个后台前端解决方案，它基于 [react](https://react.docschina.org/) 和 [antd](https://ant.design/components/overview-cn/) 实现。适用于中小型公司前端独自完成后台系统。开箱即用。
+[react-admin-ts](https://github.com/liuyueqi18/react-admin-ts) 是一个后台前端解决方案，它基于 [react](https://react.docschina.org/) 和 [antd](https://ant.design/components/overview-cn/) 实现。适用于中小型公司前端独自完成后台系统。开箱即用。
 
 - [在线预览](https://react-admin-ts.lyq168.cn/#/login)
 
