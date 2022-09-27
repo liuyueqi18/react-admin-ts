@@ -1,7 +1,6 @@
 import { lazy, LazyExoticComponent } from "react";
 import { RouteItemModel } from "../model/Route";
 
-
 const routes: RouteItemModel[] = [
   {
     path: "/",
@@ -16,13 +15,13 @@ const routes: RouteItemModel[] = [
     requiresAuth: false,
     title: "登录",
   },
-  // {
-  //   path: "/personalCenter",
-  //   title: "个人中心",
-  //   component: lazy(() => import("../page/PersonalCenter/PersonalCenter")),
-  //   requiresAuth: true,
-  //   isPage: true,
-  // },
+  {
+    path: "/personalCenter",
+    title: "个人中心",
+    component: lazy(() => import("../views/PersonalCenter/index")),
+    requiresAuth: true,
+    isPage: true,
+  },
   {
     path: "/home",
     title: "首页",
@@ -74,6 +73,13 @@ const routes: RouteItemModel[] = [
         requiresAuth: true,
       },
     ],
+  },
+  {
+    path: "/chat",
+    title: "Chat",
+    component: lazy(() => import("../views/Chat/index")),
+    requiresAuth: true,
+    icon: "WechatOutlined",
   },
   {
     path: "*",
