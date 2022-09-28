@@ -1,14 +1,12 @@
 import React, { useEffect, useRef } from "react";
 
 import { useState } from "react";
-import { Input } from "antd";
+import { Input, Switch } from "antd";
 
 import { ChatContentModel } from "../../model/Chat";
 import styles from "../../styles/Chat/Chat.module.css";
 import { getMessageApi, pushMessage } from "../../service/chat";
 import dayjs from "dayjs";
-
-const { TextArea } = Input;
 
 export default function Chat() {
   const RYMUSERID = localStorage.getItem("RYMUSERID");
@@ -16,6 +14,7 @@ export default function Chat() {
   const [message, setMessage] = useState("");
   const [content, setContent] = useState<ChatContentModel[]>([]);
   const chatBoxRef = useRef<HTMLDivElement>(null);
+  let int = useRef<NodeJS.Timeout>();
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,6 +22,12 @@ export default function Chat() {
     setMessage(e.target.value);
   };
   const onPressEnter = () => {
+    if (
+      RYMUSERID !== "6332c4789fb19a5e1980d306" &&
+      RYMUSERID !== "5f8944b4a5451b51ab88d644"
+    ) {
+      return;
+    }
     if (message !== "") {
       pushMessage({
         content: message,
@@ -32,10 +37,17 @@ export default function Chat() {
       }).then((res) => {
         setMessage("");
         getMessage();
+        handlerSlide();
       });
     }
   };
   const getMessage = () => {
+    if (
+      RYMUSERID !== "6332c4789fb19a5e1980d306" &&
+      RYMUSERID !== "5f8944b4a5451b51ab88d644"
+    ) {
+      return;
+    }
     getMessageApi().then((res) => {
       const data = res.map((i) => {
         return {
@@ -44,21 +56,45 @@ export default function Chat() {
         };
       });
       setContent(data);
-      console.log("chatBoxRef :>> ", chatBoxRef);
-      if (chatBoxRef && chatBoxRef.current) {
-        chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-      }
+      handlerSlide();
     });
   };
 
+  const handlerSlide = () => {
+    if (chatBoxRef && chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  };
+
+  const onChangeSwitch = (checked: boolean) => {
+    if (checked) {
+      int.current = setInterval(() => {
+        getMessage();
+      }, 5000);
+    } else {
+      clearInterval(int.current);
+    }
+  };
+
   useEffect(() => {
-    setInterval(() => {
-      getMessage();
-    }, 3000);
+    getMessage();
+    onChangeSwitch(true);
+    return () => {
+      onChangeSwitch(false);
+    };
+    // eslint-disable-next-line
   }, []);
 
   return (
     <div>
+      <div className={styles.switchClass}>
+        <Switch
+          checkedChildren="开启"
+          unCheckedChildren="关闭"
+          defaultChecked
+          onChange={onChangeSwitch}
+        />
+      </div>
       <div className={styles.chatBox} ref={chatBoxRef}>
         {content.map((el, idx) => {
           return (

@@ -17,10 +17,10 @@ AV.init({
 
 /**
  * 同步useState
- * @param {*} state 
- * @returns 
+ * @param {*} state
+ * @returns
  */
-export const useCallbackState = (state:any) => {
+export const useCallbackState = (state: any) => {
   const cbRef = useRef();
   const [data, setData] = useState(state);
 
@@ -30,7 +30,7 @@ export const useCallbackState = (state:any) => {
 
   return [
     data,
-    function (val:any, callback:any) {
+    function (val: any, callback: any) {
       cbRef.current = callback;
       setData(val);
     },
@@ -43,7 +43,7 @@ export const useCallbackState = (state:any) => {
  * @param {*} maxNum
  * @returns
  */
-export const randomNum = (minNum:any, maxNum:any) => {
+export const randomNum = (minNum: any, maxNum: any) => {
   return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
 };
 
@@ -91,10 +91,9 @@ export let randomName = new RandomName();
  * @returns
  */
 export function getRandomMoble() {
-  return `1${randomNum(5, 9)}${parseInt((Math.random() * 1000000000).toString())}`.padEnd(
-    11,
-    (randomNum(0, 9).toString())
-  );
+  return `1${randomNum(5, 9)}${parseInt(
+    (Math.random() * 1000000000).toString()
+  )}`.padEnd(11, randomNum(0, 9).toString());
 }
 
 /**
@@ -109,7 +108,7 @@ export const queryRegion = (code = "-1") => {
     REGIONVO.equalTo("parentCode", code);
     REGIONVO.find()
       .then((res: any[]) => {
-        const list = res.map((item: { get: (arg0: string) => any; }) => {
+        const list = res.map((item: { get: (arg0: string) => any }) => {
           return {
             center: item.get("center"),
             code: item.get("code"),
@@ -120,7 +119,7 @@ export const queryRegion = (code = "-1") => {
         });
         resolve(list);
       })
-      .catch((error: { rawMessage: any; }) => {
+      .catch((error: { rawMessage: any }) => {
         reject(error);
         message.error(error.rawMessage || "错误");
       });
@@ -140,7 +139,7 @@ export const getUserInfoById = (userId: any) => {
       .then((res: unknown) => {
         resolve(res);
       })
-      .catch((error: { rawMessage: any; }) => {
+      .catch((error: { rawMessage: any }) => {
         reject(error);
         message.error(error.rawMessage || "错误");
       });
