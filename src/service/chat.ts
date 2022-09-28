@@ -38,6 +38,7 @@ export function pushMessage(params: {
 export function getMessageApi() {
   return new Promise<ChatContentModel[]>((resolve, reject) => {
     const query = new AV.Query("Chat_Moon");
+    query.descending("createdAt");
     query.find().then(
       (
         res: {
@@ -49,7 +50,7 @@ export function getMessageApi() {
           };
         }[]
       ) => {
-        resolve(res.map((i) => i.attributes));
+        resolve(res.map((i) => i.attributes).reverse());
       }
     );
   });
