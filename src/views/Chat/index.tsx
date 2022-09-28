@@ -7,6 +7,7 @@ import { ChatContentModel } from "../../model/Chat";
 import styles from "../../styles/Chat/Chat.module.css";
 import { getMessageApi, pushMessage } from "../../service/chat";
 import dayjs from "dayjs";
+import { cryptoDecrypt, cryptoEncrypt } from "../../service/crypto";
 
 export default function Chat() {
   const RYMUSERID = localStorage.getItem("RYMUSERID");
@@ -30,11 +31,11 @@ export default function Chat() {
     }
     if (message !== "") {
       pushMessage({
-        content: message,
+        content: cryptoEncrypt(message),
         time: dayjs().format("YYYY-MM-DD HH:mm:ss"),
         userId: RYMUSERID!,
         userName: USERINFO.username,
-      }).then((res) => {
+      }).then(() => {
         setMessage("");
         getMessage();
         handlerSlide();
@@ -52,6 +53,7 @@ export default function Chat() {
       const data = res.map((i) => {
         return {
           ...i,
+          content: cryptoDecrypt(i.content),
           isSelf: i.userId === RYMUSERID,
         };
       });
@@ -67,6 +69,7 @@ export default function Chat() {
   };
 
   const onChangeSwitch = (checked: boolean) => {
+    console.log("checked :>> ", checked);
     if (checked) {
       int.current = setInterval(() => {
         getMessage();
