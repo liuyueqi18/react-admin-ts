@@ -18,7 +18,6 @@ import { RouteItemModel } from "../../model/Route";
 import { RequiredByKeys } from "../../hocks/index";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { CLOSE_SIDER, OPEN_SIDER } from "../../constants";
 
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -74,6 +73,7 @@ const LayoutComponent = () => {
   const handlerMenuItem = (value: { path: To }) => {
     nvigate(value.path);
   };
+
   const renderMenu = (list: RouteItemModel[]) => {
     list = list.filter((item) => !item.isPage);
     return list.map((item) => {
@@ -158,9 +158,9 @@ const LayoutComponent = () => {
 
   const toggleCollapsed = () => {
     if (layoutState.isShowSdier) {
-      dispatch({ type: CLOSE_SIDER });
+      dispatch({ type: "CLOSE_SIDER" });
     } else {
-      dispatch({ type: OPEN_SIDER });
+      dispatch({ type: "OPEN_SIDER" });
     }
   };
 
