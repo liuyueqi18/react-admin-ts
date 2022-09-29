@@ -16,11 +16,14 @@ import HeaderRight from "./HeaderRight";
 import { LayoutModel } from "../../model/Layout";
 import { RouteItemModel } from "../../model/Route";
 import { RequiredByKeys } from "../../hocks/index";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { CLOSE_SIDER, OPEN_SIDER } from "../../constants";
 
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-function LayoutComponent() {
+const LayoutComponent = () => {
   const [state, setState] = useState<LayoutModel>({
     path: "",
     breadcrumbKeys: [],
@@ -29,6 +32,10 @@ function LayoutComponent() {
   let breadcrumbKeys: RouteItemModel[] = [];
   const loaction = useLocation();
   const nvigate = useNavigate();
+  const dispatch = useDispatch();
+  const layoutState = useSelector(
+    (state: { layout: { isShowSdier: boolean } }) => state.layout
+  );
 
   useEffect(() => {
     handlerMenu();
@@ -149,9 +156,17 @@ function LayoutComponent() {
     </div>
   );
 
+  const toggleCollapsed = () => {
+    if (layoutState.isShowSdier) {
+      dispatch({ type: CLOSE_SIDER });
+    } else {
+      dispatch({ type: OPEN_SIDER });
+    }
+  };
+
   return (
     <Layout className={styles.layout}>
-      <Sider className={styles.sider}>
+      <Sider className={styles.sider} collapsed={layoutState.isShowSdier}>
         <SiderLogo></SiderLogo>
         <Menu
           theme="dark"
@@ -165,13 +180,22 @@ function LayoutComponent() {
       </Sider>
       <Layout>
         <Header className={styles.header}>
-          <Breadcrumb>
-            {state.breadcrumbKeys.map((item, index: number) => {
-              return (
-                <Breadcrumb.Item key={index}>{item.title}</Breadcrumb.Item>
-              );
-            })}
-          </Breadcrumb>
+          <div className={styles.headerLeft}>
+            {React.createElement(
+              layoutState.isShowSdier ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: styles.collapsedIcon,
+                onClick: () => toggleCollapsed(),
+              }
+            )}
+            <Breadcrumb>
+              {state.breadcrumbKeys.map((item, index: number) => {
+                return (
+                  <Breadcrumb.Item key={index}>{item.title}</Breadcrumb.Item>
+                );
+              })}
+            </Breadcrumb>
+          </div>
           <HeaderRight></HeaderRight>
         </Header>
         <Content className={styles.content}>
@@ -185,5 +209,6 @@ function LayoutComponent() {
       </Layout>
     </Layout>
   );
-}
+};
+
 export default LayoutComponent;

@@ -14,8 +14,10 @@
   color: #fff;
 }
 .siderLogo {
-  margin-right: 8px;
   width: 22px;
+}
+.siderTitle {
+  margin-left: 8px;
 }
 .sider {
   background: #001529;
@@ -26,6 +28,20 @@
   align-items: center;
   padding: 0 18px;
   justify-content: space-between;
+}
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+.collapsedIcon {
+  margin-right: 12px;
+  font-size: 18px;
+  color: #8d939e;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.collapsedIcon:hover {
+  color: #1890ff;
 }
 .headerRightBox {
   display: flex;
