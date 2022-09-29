@@ -8,12 +8,13 @@ import styles from "../../styles/Chat/Chat.module.css";
 import { getMessageApi, pushMessage } from "../../service/chat";
 import dayjs from "dayjs";
 import { cryptoDecrypt, cryptoEncrypt } from "../../service/crypto";
+import { useSyncState } from "../../hocks";
 
 export default function Chat() {
   const RYMUSERID = localStorage.getItem("RYMUSERID");
   const USERINFO = JSON.parse(localStorage.getItem("USERINFO")!);
   const [message, setMessage] = useState("");
-  const [content, setContent] = useState<ChatContentModel[]>([]);
+  const [content, setContent] = useSyncState<ChatContentModel[]>([]);
   const chatBoxRef = useRef<HTMLDivElement>(null);
   let int = useRef<NodeJS.Timeout>();
 
@@ -57,8 +58,9 @@ export default function Chat() {
           isSelf: i.userId === RYMUSERID,
         };
       });
-      setContent(data);
-      handlerSlide();
+      setContent(data, () => {
+        handlerSlide();
+      });
     });
   };
 
@@ -69,7 +71,6 @@ export default function Chat() {
   };
 
   const onChangeSwitch = (checked: boolean) => {
-    console.log("checked :>> ", checked);
     if (checked) {
       int.current = setInterval(() => {
         getMessage();
@@ -94,7 +95,7 @@ export default function Chat() {
         <Switch
           checkedChildren="开启"
           unCheckedChildren="关闭"
-          defaultChecked
+          defaultChecked={false}
           onChange={onChangeSwitch}
         />
       </div>

@@ -1,6 +1,5 @@
 import { message } from "antd";
 import AV from "leancloud-storage";
-import { useEffect, useRef, useState } from "react";
 import {
   nickHeader,
   nickFoot,
@@ -14,28 +13,6 @@ AV.init({
   appKey: "JXUCxIYpDrIF87LVpYlK9egD",
   serverURL: "https://server.lyq168.cn",
 });
-
-/**
- * 同步useState
- * @param {*} state
- * @returns
- */
-export const useCallbackState = (state: any) => {
-  const cbRef = useRef();
-  const [data, setData] = useState(state);
-
-  useEffect(() => {
-    cbRef.current && (cbRef as any).current(data);
-  }, [data]);
-
-  return [
-    data,
-    function (val: any, callback: any) {
-      cbRef.current = callback;
-      setData(val);
-    },
-  ];
-};
 
 /**
  * 随机数

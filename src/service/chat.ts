@@ -35,6 +35,10 @@ export function pushMessage(params: {
   });
 }
 
+/**
+ * 获取消息
+ * @returns
+ */
 export function getMessageApi() {
   return new Promise<ChatContentModel[]>((resolve, reject) => {
     const query = new AV.Query("Chat_Moon");
