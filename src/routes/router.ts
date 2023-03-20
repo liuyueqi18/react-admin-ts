@@ -74,12 +74,28 @@ const routes: RouteItemModel[] = [
       },
     ],
   },
+  // {
+  //   path: "/chat",
+  //   title: "Chat",
+  //   component: lazy(() => import("../views/Chat/index")),
+  //   requiresAuth: true,
+  //   icon: "WechatOutlined",
+  // },
   {
-    path: "/chat",
-    title: "Chat",
-    component: lazy(() => import("../views/Chat/index")),
+    path: "/weekday",
+    title: "工作日查询",
+    // component: lazy(() => import("../views/WeekDay/index")),
     requiresAuth: true,
-    icon: "WechatOutlined",
+    icon: "SmileOutlined",
+    children: [
+      {
+        path: "/weekday/list",
+        component: lazy(() => import("../views/WeekDay/list")),
+        title: "列表模式",
+        requiresAuth: true,
+        icon: "InsertRowBelowOutlined",
+      },
+    ],
   },
   {
     path: "*",
