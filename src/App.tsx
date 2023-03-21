@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import LayoutComponent from "./views/Layout/Layout";
@@ -7,8 +7,12 @@ import routesList from "./routes/router";
 
 import { RouteItemModel } from "./model/Route";
 
-import zhCN from "antd/lib/locale/zh_CN";
 import { ConfigProvider } from "antd";
+
+import zhCN from "antd/lib/locale/zh_CN";
+import "moment/locale/zh-cn";
+import moment from "moment";
+moment.locale("zh-cn");
 
 export default function App() {
   const loaction = useLocation();

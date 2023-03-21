@@ -8,6 +8,14 @@ export type UseSyncStateType = <T>(
  * 同步useState
  * @param state
  * @returns
+ * useSyncState example
+ * 
+  const [example, setExample] = useSyncState("old data");
+
+  setExample("new data", (data) => {
+    console.log(data) => "new data"
+  });
+ * 
  */
 export const useSyncState: UseSyncStateType = (state) => {
   const cbRef: { current: any } = useRef();

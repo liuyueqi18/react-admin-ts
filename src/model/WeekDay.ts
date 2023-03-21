@@ -38,10 +38,22 @@ export type WeekDayItemModel = {
 };
 
 export type WeekDayModel = {
-  thisMonthSurplusDay: string; // 本月剩余天数
-  thisMonthSurplusWeekDay: string; // 本月剩余工作日
-  thisMonthSurplusHolidayDay: string; // 本月剩余休息日
-  thisYearSurplusDay: string; // 本年剩余天数
-  thisYearSurplusWeekDay: string; // 本年剩余工作日
-  thisYearSurplusHolidayDay: string; // 本年剩余休息日
+  thisMonthWeekDay: number; // 本月工作日
+  thisMonthHolidayDay: number; // 本月休息日
+  thisMonthSurplusDay: number; // 本月剩余天数
+  thisMonthSurplusWeekDay: number; // 本月剩余工作日
+  thisMonthSurplusHolidayDay: number; // 本月剩余休息日
+  thisYearWeekDay: number; // 本年工作日
+  thisYearHolidayDay: number; // 本年休息日
+  thisYearSurplusDay: number; // 本年剩余天数
+  thisYearSurplusWeekDay: number; // 本年剩余工作日
+  thisYearSurplusHolidayDay: number; // 本年剩余休息日
+};
+
+export type WeekDayListModel = {
+  chooseMonth: string;
+  chooseMonthList: WeekDayItemModel[];
+  chooseMonthDay: number;
+  chooseMonthWeekDay: number;
+  chooseMonthHolidayDay: number;
 };

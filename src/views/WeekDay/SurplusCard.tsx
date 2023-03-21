@@ -9,12 +9,16 @@ interface MyProps {
 
 const SurplusCard = (props: MyProps) => {
   const [state, setState] = useState<WeekDayModel>({
-    thisMonthSurplusDay: "", // 本月剩余天数
-    thisMonthSurplusWeekDay: "", // 本月剩余工作日
-    thisMonthSurplusHolidayDay: "", // 本月剩余休息日
-    thisYearSurplusDay: "", // 本年剩余天数
-    thisYearSurplusWeekDay: "", // 本年剩余工作日
-    thisYearSurplusHolidayDay: "", // 本年剩余休息日
+    thisMonthWeekDay: 0,
+    thisMonthHolidayDay: 0,
+    thisMonthSurplusDay: 0,
+    thisMonthSurplusWeekDay: 0,
+    thisMonthSurplusHolidayDay: 0,
+    thisYearWeekDay: 0,
+    thisYearHolidayDay: 0,
+    thisYearSurplusDay: 0,
+    thisYearSurplusWeekDay: 0,
+    thisYearSurplusHolidayDay: 0,
   }); //
 
   const getDataByList = () => {
@@ -40,20 +44,23 @@ const SurplusCard = (props: MyProps) => {
     );
     setState({
       ...state,
-      thisMonthSurplusDay: thisMonthSurplusDay.length.toString(),
-      thisMonthSurplusWeekDay: thisMonthSurplusDay
-        .filter((i) => i.workday === 1)
-        .length.toString(),
-      thisMonthSurplusHolidayDay: thisMonthSurplusDay
-        .filter((i) => i.workday === 2)
-        .length.toString(),
-      thisYearSurplusDay: thisYearSurplusDay.length.toString(),
-      thisYearSurplusWeekDay: thisYearSurplusDay
-        .filter((i) => i.workday === 1)
-        .length.toString(),
-      thisYearSurplusHolidayDay: thisYearSurplusDay
-        .filter((i) => i.workday === 2)
-        .length.toString(),
+      thisMonthWeekDay: thisMonth.filter((i) => i.workday === 1).length,
+      thisMonthHolidayDay: thisMonth.filter((i) => i.workday === 2).length,
+      thisMonthSurplusDay: thisMonthSurplusDay.length,
+      thisMonthSurplusWeekDay: thisMonthSurplusDay.filter(
+        (i) => i.workday === 1
+      ).length,
+      thisMonthSurplusHolidayDay: thisMonthSurplusDay.filter(
+        (i) => i.workday === 2
+      ).length,
+      thisYearWeekDay: props.list.filter((i) => i.workday === 1).length,
+      thisYearHolidayDay: props.list.filter((i) => i.workday === 2).length,
+      thisYearSurplusDay: thisYearSurplusDay.length,
+      thisYearSurplusWeekDay: thisYearSurplusDay.filter((i) => i.workday === 1)
+        .length,
+      thisYearSurplusHolidayDay: thisYearSurplusDay.filter(
+        (i) => i.workday === 2
+      ).length,
     });
   };
 
@@ -68,19 +75,25 @@ const SurplusCard = (props: MyProps) => {
     <div>
       <Card>
         <Row gutter={[16, 24]}>
-          <Col span={8}>
+          <Col span={4}>
+            <Statistic title="本月工作日" value={state.thisMonthWeekDay} />
+          </Col>
+          <Col span={4}>
+            <Statistic title="本月休息日" value={state.thisMonthHolidayDay} />
+          </Col>
+          <Col span={6}>
             <Statistic
               title="本月剩余天数(含今日)"
               value={state.thisMonthSurplusDay}
             />
           </Col>
-          <Col span={8}>
+          <Col span={5}>
             <Statistic
               title="本月剩余工作日"
               value={state.thisMonthSurplusWeekDay}
             />
           </Col>
-          <Col span={8}>
+          <Col span={5}>
             <Statistic
               title="本月剩余休息日"
               value={state.thisMonthSurplusHolidayDay}
@@ -88,19 +101,25 @@ const SurplusCard = (props: MyProps) => {
           </Col>
         </Row>
         <Row gutter={[16, 24]}>
-          <Col span={8}>
+          <Col span={4}>
+            <Statistic title="本年工作日" value={state.thisYearWeekDay} />
+          </Col>
+          <Col span={4}>
+            <Statistic title="本年休息日" value={state.thisYearHolidayDay} />
+          </Col>
+          <Col span={6}>
             <Statistic
               title="本年剩余天数(含今日)"
               value={state.thisYearSurplusDay}
             />
           </Col>
-          <Col span={8}>
+          <Col span={5}>
             <Statistic
               title="本年剩余工作日"
               value={state.thisYearSurplusWeekDay}
             />
           </Col>
-          <Col span={8}>
+          <Col span={5}>
             <Statistic
               title="本年剩余休息日"
               value={state.thisYearSurplusHolidayDay}
