@@ -9,6 +9,10 @@ declare namespace NodeJS {
   }
 }
 
+declare interface Window {
+  _AMapSecurityConfig: { securityJsCode: string };
+}
+
 declare module "*.avif" {
   const src: string;
   export default src;

@@ -1,0 +1,35 @@
+.map {
+  width: 100%;
+  height: 100%;
+}
+.content {
+  display: flex;
+}
+.text {
+  white-space: nowrap;
+  background: #fff;
+  color: #333;
+  padding: 2px 4px;
+  border-radius: 2px;
+  border: 1px solid #333;
+  font-size: 12px;
+  position: relative;
+  margin-left: 5px;
+  box-sizing: border-box;
+}
+.text::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-bottom: 1px solid #333;
+  border-left: 1px solid #333;
+  transform: rotate(45deg);
+  left: -6px;
+  top: 6px;
+}
+.img {
+  width: 24px;
+  height: 24px;
+}

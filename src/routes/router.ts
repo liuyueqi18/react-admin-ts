@@ -84,7 +84,6 @@ const routes: RouteItemModel[] = [
   {
     path: "/weekday",
     title: "工作日查询",
-    // component: lazy(() => import("../views/WeekDay/index")),
     requiresAuth: true,
     icon: "SmileOutlined",
     children: [
@@ -94,6 +93,20 @@ const routes: RouteItemModel[] = [
         title: "列表模式",
         requiresAuth: true,
         icon: "InsertRowBelowOutlined",
+      },
+    ],
+  },
+  {
+    path: "/szLeisureCard",
+    title: "苏州休闲卡",
+    requiresAuth: true,
+    icon: "GlobalOutlined",
+    children: [
+      {
+        path: "/szLeisureCard/gd",
+        component: lazy(() => import("../views/SZLeisureCard/gd")),
+        title: "高德地图",
+        icon: "EnvironmentOutlined",
       },
     ],
   },
