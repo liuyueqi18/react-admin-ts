@@ -5,7 +5,7 @@ import gdStyle from "../../styles/SZArderCard/gd.module.css";
 
 import fixedLogo from "../../image/fixedLogo.png";
 import { getSZLeisureCardData } from "../../service/szLeisureCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 window._AMapSecurityConfig = {
   securityJsCode: "e5783ee62505e5504e02825477bdba91",
@@ -46,7 +46,18 @@ const markerClick = (data: {
 };
 
 export default function GD() {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const isMobileFun = () => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+    ) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
   const getMapData = async () => {
+    isMobileFun();
     const data = await getSZLeisureCardData();
     AMapLoader.load({
       key: "e5783ee62505e5504e02825477bdba91",
@@ -56,7 +67,7 @@ export default function GD() {
       .then((AMap) => {
         map = new AMap.Map("container", {
           zoom: 10,
-          // center: [120.610868, x31.329679],
+          center: [120.610868, 31.329679],
         });
         data.forEach((i) => {
           const marker = new AMap.Marker({
@@ -67,7 +78,9 @@ export default function GD() {
           marker.on("click", markerClick);
           map.add(marker);
         });
-        map.setFitView(null, false, [100, 100, 100, 100]);
+        if (!isMobile) {
+          map.setFitView(null, false, [100, 100, 100, 100]);
+        }
       })
       .catch((e) => {
         message.error(JSON.stringify(e) || "错误");
@@ -81,8 +94,11 @@ export default function GD() {
     // eslint-disable-next-line
   }, []);
   return (
-    <div className={gdStyle.map}>
-      <div id="container" className={gdStyle.map}></div>
+    <div className={!isMobile ? gdStyle.map : gdStyle.mobileMap}>
+      <div
+        id="container"
+        className={!isMobile ? gdStyle.map : gdStyle.mobileMap}
+      ></div>
     </div>
   );
 }

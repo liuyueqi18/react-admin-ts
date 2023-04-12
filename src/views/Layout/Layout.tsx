@@ -27,6 +27,7 @@ const LayoutComponent = () => {
     path: "",
     breadcrumbKeys: [],
   });
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   let defaultOpenKeys: string[] = [];
   let breadcrumbKeys: RouteItemModel[] = [];
   const loaction = useLocation();
@@ -45,11 +46,22 @@ const LayoutComponent = () => {
   }, [loaction.pathname]);
 
   const handlerMenu = () => {
+    isMobileFun(); // 判断移动端设备不展示侧边栏&顶部
     getPathRoute(routesList, loaction.pathname);
     setState({
       path: loaction.pathname,
       breadcrumbKeys: breadcrumbKeys.reverse(),
     });
+  };
+
+  const isMobileFun = () => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+    ) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
   };
 
   const getPathRoute = (tree: RouteItemModel[], path: string) => {
@@ -165,49 +177,65 @@ const LayoutComponent = () => {
   };
 
   return (
-    <Layout className={styles.layout}>
-      <Sider className={styles.sider} collapsed={layoutState.isShowSdier}>
-        <SiderLogo></SiderLogo>
-        <Menu
-          theme="dark"
-          mode="inline"
-          onSelect={onSelect}
-          selectedKeys={[state.path]}
-          defaultOpenKeys={defaultOpenKeys}
-        >
-          {renderMenu(routesList)}
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header className={styles.header}>
-          <div className={styles.headerLeft}>
-            {React.createElement(
-              layoutState.isShowSdier ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: styles.collapsedIcon,
-                onClick: () => toggleCollapsed(),
-              }
-            )}
-            <Breadcrumb>
-              {state.breadcrumbKeys.map((item, index: number) => {
-                return (
-                  <Breadcrumb.Item key={index}>{item.title}</Breadcrumb.Item>
-                );
-              })}
-            </Breadcrumb>
-          </div>
-          <HeaderRight></HeaderRight>
-        </Header>
-        <Content className={styles.content}>
+    <div>
+      {!isMobile ? (
+        <Layout className={styles.layout}>
+          <Sider className={styles.sider} collapsed={layoutState.isShowSdier}>
+            <SiderLogo></SiderLogo>
+            <Menu
+              theme="dark"
+              mode="inline"
+              onSelect={onSelect}
+              selectedKeys={[state.path]}
+              defaultOpenKeys={defaultOpenKeys}
+            >
+              {renderMenu(routesList)}
+            </Menu>
+          </Sider>
+          <Layout>
+            <Header className={styles.header}>
+              <div className={styles.headerLeft}>
+                {React.createElement(
+                  layoutState.isShowSdier
+                    ? MenuUnfoldOutlined
+                    : MenuFoldOutlined,
+                  {
+                    className: styles.collapsedIcon,
+                    onClick: () => toggleCollapsed(),
+                  }
+                )}
+                <Breadcrumb>
+                  {state.breadcrumbKeys.map((item, index: number) => {
+                    return (
+                      <Breadcrumb.Item key={index}>
+                        {item.title}
+                      </Breadcrumb.Item>
+                    );
+                  })}
+                </Breadcrumb>
+              </div>
+              <HeaderRight></HeaderRight>
+            </Header>
+            <Content className={styles.content}>
+              {/*  maxDuration={500} */}
+              <Suspense fallback={renderLoading}>
+                {/* exact */}
+                <Routes>{renderElementPage(routesList)}</Routes>
+              </Suspense>
+            </Content>
+            {/* <Footer className={styles.footer}>底部区域</Footer> */}
+          </Layout>
+        </Layout>
+      ) : (
+        <Content className={styles.mobileContent}>
           {/*  maxDuration={500} */}
           <Suspense fallback={renderLoading}>
             {/* exact */}
             <Routes>{renderElementPage(routesList)}</Routes>
           </Suspense>
         </Content>
-        {/* <Footer className={styles.footer}>底部区域</Footer> */}
-      </Layout>
-    </Layout>
+      )}
+    </div>
   );
 };
 
