@@ -1,20 +1,20 @@
-import { Col, DatePicker, DatePickerProps, Divider, Row } from "antd";
+import { Calendar, DatePicker, DatePickerProps, Divider } from "antd";
 import { RangePickerProps } from "antd/lib/date-picker";
+import type { Moment } from "moment";
 import dayjs from "dayjs";
 import moment from "moment";
 import React, { useEffect } from "react";
 
 import { useSyncState } from "../../hocks";
-import {
-  WeekDayItemModel,
-  WeekDayListModel,
-  WeekDayModel,
-} from "../../model/WeekDay";
+import { WeekDayItemModel, WeekDayListModel } from "../../model/WeekDay";
 import { getYearWeekDay } from "../../service/weekday";
 
 import styles from "../../styles/WeekDay/list.module.css";
 
 import SurplusCard from "./SurplusCard";
+
+import happyImg from "../../image/weekday/happy.png";
+import noHappyImg from "../../image/weekday/nohappy.png";
 
 // 只能选择本年
 // eslint-disable-next-line arrow-body-style
@@ -36,6 +36,8 @@ export default function WeekDay() {
       chooseMonthWeekDay: 0,
       chooseMonthHolidayDay: 0,
     });
+
+  const [calendarValue, setCalendarValue] = useSyncState<Moment>(moment());
 
   const getYearList = () => {
     getYearWeekDay().then((res) => {
@@ -66,6 +68,30 @@ export default function WeekDay() {
         //
       }
     );
+    setCalendarValue(moment(month), () => {
+      //
+    });
+  };
+
+  const dateCellRender = (value: Moment) => {
+    const item =
+      weekDayList.find((i) => i.date.toString() === value.format("YYYYMMDD")) ??
+      null;
+    if (item?.workday === 2) {
+      return (
+        <div className={styles.calendar_item}>
+          <img src={happyImg} className={styles.calendar_item_img} />
+        </div>
+      );
+    }
+    if (item?.workday === 1) {
+      return (
+        <div className={styles.calendar_item}>
+          <img src={noHappyImg} className={styles.calendar_item_img} />
+        </div>
+      );
+    }
+    return null;
   };
 
   useEffect(() => {
@@ -87,21 +113,29 @@ export default function WeekDay() {
   return (
     <div>
       <SurplusCard list={weekDayList}></SurplusCard>
-      <div style={{ height: "12px" }}></div>
-      <span>本月天数:{chooseMonthState.chooseMonthDay}天</span>{" "}
-      <Divider type="vertical" />
-      <span>本月工作日:{chooseMonthState.chooseMonthWeekDay}天</span>{" "}
-      <Divider type="vertical" />
-      <span>本月休息日:{chooseMonthState.chooseMonthHolidayDay}天</span>{" "}
-      <Divider type="vertical" />
-      &nbsp;&nbsp;
-      <DatePicker
-        onChange={onChangeMonth}
-        disabledDate={disabledDate}
-        defaultValue={moment()}
-        picker="month"
-        allowClear={false}
-      ></DatePicker>
+      <div className={styles.calendar_box}>
+        <span>本月天数:{chooseMonthState.chooseMonthDay}天</span>{" "}
+        <Divider type="vertical" />
+        <span>本月工作日:{chooseMonthState.chooseMonthWeekDay}天</span>{" "}
+        <Divider type="vertical" />
+        <span>本月休息日:{chooseMonthState.chooseMonthHolidayDay}天</span>{" "}
+        <Divider type="vertical" />
+        <DatePicker
+          onChange={onChangeMonth}
+          disabledDate={disabledDate}
+          defaultValue={moment()}
+          picker="month"
+          allowClear={false}
+        ></DatePicker>
+        <div style={{ height: "12px" }}></div>
+        <Calendar
+          value={calendarValue}
+          headerRender={() => {
+            return null;
+          }}
+          dateCellRender={dateCellRender}
+        />
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { Card, Col, Row, Statistic } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { WeekDayItemModel, WeekDayModel } from "../../model/WeekDay";
+import styles from "../../styles/WeekDay/list.module.css";
 
 interface MyProps {
   list: WeekDayItemModel[];
@@ -73,7 +74,7 @@ const SurplusCard = (props: MyProps) => {
   }, [props.list]);
   return (
     <div>
-      <Card>
+      <Card className={styles.year_card}>
         <Row gutter={[16, 24]}>
           <Col span={4}>
             <Statistic title="本月工作日" value={state.thisMonthWeekDay} />

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import AV from "leancloud-storage";
 import { WeekDayItemModel } from "../model/WeekDay";
 
@@ -15,7 +16,12 @@ export function getYearWeekDay() {
   return new Promise<WeekDayItemModel[]>((resolve, reject) => {
     const query = new AV.Query("CN_WeekDay");
     query.descending("createdAt");
-    query.limit(366);
+    query.greaterThanOrEqualTo("date", Number(`${dayjs().format("YYYY")}0101`));
+    query.lessThanOrEqualTo(
+      "date",
+      Number(`${Number(dayjs().format("YYYY"))}1231`)
+    );
+    query.limit(400);
     query.find().then(
       (
         res: {
