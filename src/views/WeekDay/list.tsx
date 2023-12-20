@@ -80,14 +80,14 @@ export default function WeekDay() {
     if (item?.workday === 2) {
       return (
         <div className={styles.calendar_item}>
-          <img src={happyImg} className={styles.calendar_item_img} />
+          <img src={happyImg} className={styles.calendar_item_img} alt="" />
         </div>
       );
     }
     if (item?.workday === 1) {
       return (
         <div className={styles.calendar_item}>
-          <img src={noHappyImg} className={styles.calendar_item_img} />
+          <img src={noHappyImg} className={styles.calendar_item_img} alt="" />
         </div>
       );
     }
