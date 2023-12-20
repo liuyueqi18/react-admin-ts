@@ -84,14 +84,14 @@ const routes: RouteItemModel[] = [
   {
     path: "/weekday",
     title: "工作日查询",
-    requiresAuth: true,
+    // requiresAuth: true,
     icon: "SmileOutlined",
     children: [
       {
         path: "/weekday/list",
         component: lazy(() => import("../views/WeekDay/list")),
         title: "列表模式",
-        requiresAuth: true,
+        // requiresAuth: true,
         icon: "InsertRowBelowOutlined",
       },
     ],
