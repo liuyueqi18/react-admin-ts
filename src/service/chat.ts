@@ -6,7 +6,7 @@ import { ChatContentModel } from "../model/Chat";
 AV.init({
   appId: "Q8A65T5W8qkMkbWI17g7vAu0-gzGzoHsz",
   appKey: "JXUCxIYpDrIF87LVpYlK9egD",
-  serverURL: "https://server.lyq168.cn",
+  serverURL: "https://q8a65t5w.lc-cn-n1-shared.com",
 });
 
 // leancloud 无法带ts类型
